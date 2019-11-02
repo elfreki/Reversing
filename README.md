@@ -11,7 +11,7 @@ For submissions fork the repo and make a folder by your username and submit by m
 |3| Task3 | W + S |
 |4| Task4 | W + S |
 |5| Task5 | W + S |
-|6| Task 6| W + S |
+|6| Task 6| F + W + S |
 
 Index |         |
 ------|---------|
