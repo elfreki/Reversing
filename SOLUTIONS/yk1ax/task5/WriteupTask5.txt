@@ -1,0 +1,25 @@
+I downloaded the file and it has the name stackoverwritereturns so I got the idea it will be related to overflow
+I used the 'file' command which showed it is an elf 32-bit lsb executable and so it was a binary executable file
+Used ./stackoverwritereturns but it had perission denied so I granted it executable permission by chmod +x stackoverwritereturns
+It's name was lengthy so - mv stackoverwritereturns stack
+I ran the program by ./stack but it showed that it needs an argument
+I used the command strings stack > file.txt to store the readable characters from the executable file
+So I first used 'abc' as argument the message was 'try again, you've got 0x0000000'
+as it was zero hexadecimal number so I understood that it wasn't taking input yet and I needed to increase the size of the string argument so I used "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+as the argument and now the hex number shown was 0x61616161 and ascii value of a is hex is 0x61
+Since it had 61 four times so it was clear that 4 characters were being checked
+By hit and trial method I became sure that 64 characters were being ignored by the program
+In file.txt there was some easily understandable text
+please specify an argument
+you have correctly got the variable to the right value
+Try again, you got 0x%08x
+
+The two lines above 'please specify an argument' were
+'D$\=dcbau                      --> Because of the '=' sign it looked like the required argument and it was consecutive alphabets in reverse order if I ignored u
+[^_]                            --> It looks like an arrow pointing upwards so it was maybe a hint of the argument
+please specify an argument'
+
+So I ran the program with the argument as 64 times 'a' + "dcbau"
+And finally it was successfull
+
+During solving this question I discoved some commands by searching about exploiting binary files
