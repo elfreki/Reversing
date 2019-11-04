@@ -1,0 +1,91 @@
+On running crackme file using command
+
+                       "./crackme"
+
+This asks for password.
+
+Using radare2 tool.
+
+Step 1:Use command 
+                      "r2 crackme"
+
+Step 2:then type 
+                     "aaa"   
+
+       This will analyze all code in crackme file
+
+Step 3:Now type 
+                     "afl"  
+         this will show all the functions in the code.
+
+Step 4:type
+                   "s sym.main"
+  this will change the address of current position in the code to the starting point of main function.
+
+Step 5:type 
+                    "VV"
+     this will show the selected function in visual mode.
+     Now trying to see the function test.
+Step 6:run radare2 in another terminal and follow till step 3 and then type
+                    "s sys.test"
+
+Step 7:Now type     "VV"
+               this will show the test function in visual mode which has a line which is
+                       
+                        "cmp eax, dword [arg_ch]"
+               this,shows that eax variable is being compared with another variable which is most probably the password which we type.
+Now coming back to the main function
+
+This main function has some lines of code which look like an algorithm.
+
+            mov dword [local_8h], 0x5a                        |               
+               | ; 492                                             |               
+               | mov dword [local_ch], 0x1ec                       |               
+               | mov edx, dword [local_ch]                         |               
+               | lea eax, dword [local_8h]                         |               
+               | add dword [eax], edx                              |               
+               | mov eax, dword [local_8h]                         |               
+               | imul eax, dword [local_8h]                        |               
+               | mov dword [local_ch], eax                         |               
+               | mov eax, dword [local_ch]                         |               
+               | mov dword [local_4h_2], eax                       |               
+               | mov eax, dword [local_4h]                         |               
+               | mov dword [esp], eax    
+
+  trying to get the algorithm
+              
+               let, dword [local_ch] = ch
+                    dword[local_8h] = 8h
+                    
+so it goes like 
+             mov command is like assignment operator
+                8h=0x5a
+                ch=0x1ec
+            lea command assigns memory address to the variable
+               eax->8h
+             add command is used to add
+             8h= 0x5a + 0x1ec= 0x246
+             imul command is used to multiply
+             eax=eax*8h = > eax= 0x246 * 0x246=0x52b24
+             ch=0x52b24
+             eax=0x52b24
+             
+so we got the eax=0x52b24
+
+Step 8:Now write
+               "? 0x52b24"
+    in the radare2 terminal.
+ 
+This will give the password for the question in the int32 row which is  "338724" 
+
+Step 9:Again run the crackme file in terminal and write the password.
+       This gives prompt PASSWORD OK.
+
+                
+            
+           
+ 
+      
+
+     
+
